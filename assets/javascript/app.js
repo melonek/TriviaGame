@@ -38,7 +38,6 @@ $("#reset").hide();
 let muzyka = new Audio("./assets/music/dynamic.mp3");
 let playMusic = $("#quizStart").on("click", () => {
   muzyka.play();
-  intervalId = setInterval(timeIt, 1000);
 });
 
 //--Setting up our timer for each question here:--//
@@ -61,33 +60,48 @@ function convertSeconds(s) {
 }
 //--Timer function finishes here--//
 function loadPage() {
+  intervalId = setInterval(timeIt, 1000);
   $("#quizStart").hide();
   $("#imgBox").hide();
   $("#questionBox").show();
   loadNextQuestion();
 }
 
+var timeOut = function() {
+  $("#correct-answer").empty();
+  loadNextQuestion();
+};
+
 function gotItRight() {
-  console.log("You got it right!");
+  let right = $("#correct-answer");
+  rightDiv = $("<div>");
+  rightDiv.html("<h3>Correct Answer!</h3>");
+  rightDiv.appendTo(right);
+
   wins++;
   timer = -1;
-  loadNextQuestion();
-}
-
-function unanswered() {
-  console.log("You didn't try to answer");
-  skips++;
-  timer = -1;
-  loadNextQuestion();
+  setTimeout(timeOut, 2000);
 }
 
 function gotItWrong() {
-  console.log("You got it wrong!"); //make it display <h3> instead in #answer-status div!
-  //display the correct message in #correct-answer div!
+  let wrong = $("#correct-answer");
+  wrongDiv = $("<div>");
+  wrongDiv.html(
+    "<h3>Wrong Answer! Correct answer was: </h3>" + correctAnswer[counter - 1]
+  );
+  wrongDiv.appendTo(wrong);
+
   losses++;
   timer = -1;
-  loadNextQuestion();
+  setTimeout(timeOut, 3000);
 }
+
+function unanswered() {
+  skips++;
+  timer = -1;
+  setTimeout(timeOut, 3000);
+}
+
 //--This function will shuffle our buttons so optionA(correct ans.) will always change its place//
 function shuffle(allMyButtons) {
   for (i = allMyButtons.length - 1; i > 0; i--) {
@@ -98,10 +112,29 @@ function shuffle(allMyButtons) {
   }
 }
 function gameFinished() {
-  if (wins + losses + skips === counter) {
-    alert("gówno");
+  if (wins + losses + skips === apiQuestions.length) {
     $("#timer").hide();
+    $("#question").hide();
+    $("#answer-buttons").hide();
     clearInterval(intervalId);
+
+    let score = $("#results");
+    scoreDiv = $("<div>");
+    scoreDiv.html(
+      "<h3>Well done!<br> You have got</h3>" +
+        wins +
+        "<h3>correct answers<br></h3>" +
+        losses +
+        "<h3>wrong answers, and</h3> " +
+        skips +
+        "<h3>incorrect answers</h3> <br> <h3>Wanna try again?!</h3>"
+    );
+    scoreDiv.appendTo(score);
+    $("#reset")
+      .show()
+      .on("click", function() {
+        location.reload();
+      });
   }
 }
 
@@ -140,8 +173,10 @@ function loadNextQuestion() {
   }
 
   counter++;
+  gameFinished();
 }
 
 $("#quizStart").on("click", function() {
   loadPage();
+  setInterval(intervalId);
 });
