@@ -15,6 +15,10 @@
       href="https://fonts.googleapis.com/css?family=Teko&display=swap"
       rel="stylesheet"
     />
+    <link
+      href="https://fonts.googleapis.com/css?family=Acme&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <title>QUIZ TIME!!!</title>
@@ -36,13 +40,14 @@
       </button>
     </div>
     <div id="questionBox" class="jumbotron jumbotron-fluid">
-      <div id="timer" class="row-fluid"><h3>0:30</h3></div>
+      <div id="timer" class="row-fluid"><h3></h3></div>
+      <div id="progress-bar" class="row-fluid"></div>
       <div id="question"></div>
       <div id="answer-buttons"></div>
       <div id="correct-answer"></div>
       <div id="results"></div>
+      <br />
       <button class="btn btn-success" id="reset">Play Again?</button>
-      <div id="progress_bar" class="row-fluid"></div>
     </div>
 
     <script src="assets/javascript/app.js"></script>

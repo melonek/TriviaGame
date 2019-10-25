@@ -43,11 +43,19 @@ let playMusic = $("#quizStart").on("click", () => {
 //--Setting up our timer for each question here:--//
 
 let qtimer = $("#timer");
-qtimer.html(convertSeconds(timeLeft - timer));
-
+if (timeLeft - timer < 10) {
+  qtimer.html("00:0" + (timeLeft - timer));
+} else {
+  qtimer.html("00:" + (timeLeft - timer));
+}
 function timeIt() {
   timer++;
-  qtimer.html(convertSeconds(timeLeft - timer));
+  if (timeLeft - timer < 10) {
+    qtimer.html("00:0" + (timeLeft - timer));
+  } else {
+    qtimer.html("00:" + (timeLeft - timer));
+  }
+
   if (timeLeft - timer === 0) {
     unanswered();
   }
@@ -56,9 +64,10 @@ function timeIt() {
 function convertSeconds(s) {
   let min = Math.floor(s / 60);
   let sec = s % 60;
-  return min + ":" + sec;
+  return min + "0:" + sec;
 }
 //--Timer function finishes here--//
+
 function loadPage() {
   intervalId = setInterval(timeIt, 1000);
   $("#quizStart").hide();
@@ -80,7 +89,7 @@ function gotItRight() {
 
   wins++;
   timer = -1;
-  setTimeout(timeOut, 2000);
+  setTimeout(timeOut, 1500);
 }
 
 function gotItWrong() {
@@ -93,13 +102,13 @@ function gotItWrong() {
 
   losses++;
   timer = -1;
-  setTimeout(timeOut, 3000);
+  setTimeout(timeOut, 2500);
 }
 
 function unanswered() {
   skips++;
   timer = -1;
-  setTimeout(timeOut, 3000);
+  loadNextQuestion();
 }
 
 //--This function will shuffle our buttons so optionA(correct ans.) will always change its place//
@@ -116,6 +125,7 @@ function gameFinished() {
     $("#timer").hide();
     $("#question").hide();
     $("#answer-buttons").hide();
+    $("#progress-bar").hide();
     clearInterval(intervalId);
 
     let score = $("#results");
@@ -174,6 +184,12 @@ function loadNextQuestion() {
 
   counter++;
   gameFinished();
+  changeImg();
+}
+
+function changeImg() {
+  let image = "/assets/images/b" + counter + ".png";
+  $("#progress-bar").html('<img src="' + image + '" alt=""/>');
 }
 
 $("#quizStart").on("click", function() {
