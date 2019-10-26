@@ -13,12 +13,6 @@ body {
   background-size: cover;
 }
 
-@media only screen and (max-width: 767px) {
-  body {
-    background-image: url("retro.jpg");
-  }
-}
-
 #questionBox {
   width: 80%;
   margin: 50px auto;
