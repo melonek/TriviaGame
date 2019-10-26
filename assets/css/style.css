@@ -21,8 +21,6 @@ body {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    height: 100%;
-    overflow: hidden;
   }
 }
 
@@ -85,6 +83,7 @@ body {
   margin-right: 10px;
   color: black;
 }
+
 #question {
   height: auto;
   width: auto;
@@ -105,6 +104,7 @@ body {
 .progress-bar {
   text-align: center;
   margin: 10px auto;
+  min-height: 100px;
 }
 
 img {
@@ -119,7 +119,11 @@ img {
   border: 2px solid black;
   border-radius: 10px;
 }
-
+#answer-buttons > button:hover {
+  background: #222222;
+  color: white;
+  border: 3px solid white;
+}
 #text {
   font-size: 30px;
 }

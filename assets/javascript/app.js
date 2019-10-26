@@ -35,9 +35,12 @@ $(document).ready(function() {
 
 $("#questionBox").hide();
 $("#reset").hide();
-let muzyka = new Audio("./assets/music/dynamic.mp3");
+let muzyka = new Audio("./assets/music/music.mp3");
+var yes = new Audio("./assets/music/yes.wav");
+var no = new Audio("./assets/music/no.wav");
 let playMusic = $("#quizStart").on("click", () => {
   muzyka.play();
+  muzyka.volume = 0.4;
 });
 
 //--Setting up our timer for each question here:--//
@@ -80,12 +83,20 @@ var timeOut = function() {
   $("#correct-answer").empty();
   loadNextQuestion();
 };
-
 function gotItRight() {
+  yes.play();
+  yes.volume = 0.2;
+
   let right = $("#correct-answer");
   rightDiv = $("<div>");
   rightDiv.html("<h3>Correct Answer!</h3>");
   rightDiv.appendTo(right);
+
+  let righto = $("#righto");
+  $(righto).css("background", "#003300");
+  $(righto).css("border", "3px solid #00C000");
+  $(righto).css("cursour", "default");
+  $(righto).css("color", "white");
 
   wins++;
   timer = -1;
@@ -93,12 +104,21 @@ function gotItRight() {
 }
 
 function gotItWrong() {
+  no.play();
+  no.volume = 0.3;
   let wrong = $("#correct-answer");
   wrongDiv = $("<div>");
   wrongDiv.html(
     "<h3>Wrong Answer! Correct answer was: </h3>" + correctAnswer[counter - 1]
   );
   wrongDiv.appendTo(wrong);
+
+  let wrongo = $(".wrongo");
+  $(wrongo).css("background", "#330000");
+  $(wrongo).css("border", "3px solid #C00000");
+  $(wrongo).css("cursour", "default");
+  $(wrongo).css("color", "white");
+  $(wrongo).css("click", ";");
 
   losses++;
   timer = -1;
@@ -157,21 +177,25 @@ function loadNextQuestion() {
 
   allMyButtons.push(
     $("<button>")
+      .attr("id", "righto")
       .html(correctAnswer[counter])
       .click(gotItRight)
   );
   allMyButtons.push(
     $("<button>")
+      .addClass("wrongo")
       .html(optionB[counter])
       .click(gotItWrong)
   );
   allMyButtons.push(
     $("<button>")
+      .addClass("wrongo")
       .html(optionC[counter])
       .click(gotItWrong)
   );
   allMyButtons.push(
     $("<button>")
+      .addClass("wrongo")
       .html(optionD[counter])
       .click(gotItWrong)
   );
