@@ -188,7 +188,7 @@ function loadNextQuestion() {
 }
 
 function changeImg() {
-  let image = "/assets/images/b" + counter + ".png";
+  let image = "./assets/images/b" + counter + ".png";
   $("#progress-bar").html('<img src="' + image + '" alt=""/>');
 }
 
