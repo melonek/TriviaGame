@@ -12,7 +12,7 @@ let wins = 0;
 let losses = 0;
 let skips = 0;
 let timer = 0;
-let timeLeft = 15;
+let timeLeft = 20;
 let intervalId;
 
 $(document).ready(function() {
@@ -99,16 +99,20 @@ function gotItRight() {
   rightDiv.appendTo(right);
 
   let righto = $("#righto");
+  $(righto).attr("disabled", true);
   $(righto).css("background", "#003300");
   $(righto).css("border", "3px solid #00C000");
   $(righto).css("cursour", "default");
   $(righto).css("color", "white");
-  $(righto).attr("disabled", "disabled");
+  $(righto).attr("onclick", ";");
 
   let wrongo1 = $(".wrongo");
+  $(wrongo1).attr("disabled", true);
+  $(wrongo1).css("background", "#330000");
+  $(wrongo1).css("border", "3px solid #C00000");
   $(wrongo1).css("cursour", "default");
   $(wrongo1).css("color", "white");
-  $(wrongo1).attr("disabled", "disabled");
+  $(wrongo1).attr("onclick", ";");
 
   wins++;
   timer = -1;
@@ -124,18 +128,20 @@ function gotItWrong() {
   wrongDiv.appendTo(wrong);
 
   let wrongo = $(".wrongo");
+  $(wrongo).attr("disabled", true);
   $(wrongo).css("background", "#330000");
   $(wrongo).css("border", "3px solid #C00000");
   $(wrongo).css("cursour", "default");
   $(wrongo).css("color", "white");
-  $(wrongo).attr("disabled", "disabled");
+  $(wrongo).attr("onclick", ";");
 
   let righto1 = $("#righto");
+  $(righto1).attr("disabled", true);
   $(righto1).css("background", "#003300");
   $(righto1).css("border", "3px solid #00C000");
   $(righto1).css("cursour", "default");
   $(righto1).css("color", "white");
-  $(righto1).attr("disabled", "disabled");
+  $(righto1).attr("onclick", ";");
 
   losses++;
   timer = -1;
@@ -183,10 +189,6 @@ function gameFinished() {
       .on("click", function() {
         location.reload();
       });
-
-    muzyka.pause();
-    haha.play();
-    haha.volume(0.2);
   }
 }
 
