@@ -6,14 +6,11 @@
   box-sizing: border-box;
 }
 body {
-  background-image: url("retro.jpg");
-  background-position: center center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
+  background: url(retro.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
   background-size: cover;
-  background-color: #464646;
-  min-height: 100%;
-  max-height: 100vh;
 }
 
 @media only screen and (max-width: 767px) {
