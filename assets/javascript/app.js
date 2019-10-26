@@ -36,8 +36,9 @@ $(document).ready(function() {
 $("#questionBox").hide();
 $("#reset").hide();
 let muzyka = new Audio("./assets/music/music.mp3");
-var yes = new Audio("./assets/music/yes.wav");
-var no = new Audio("./assets/music/no.wav");
+let yes = new Audio("./assets/music/yes.wav");
+let no = new Audio("./assets/music/no.wav");
+let haha = new Audio("./assets/music/haha.mp3");
 let playMusic = $("#quizStart").on("click", () => {
   muzyka.play();
   muzyka.volume = 0.4;
@@ -55,6 +56,10 @@ function timeIt() {
   timer++;
   if (timeLeft - timer < 10) {
     qtimer.html("00:0" + (timeLeft - timer));
+    let redTimer = $("#timer");
+    $(redTimer).css("background", "#330000");
+    $(redTimer).css("border", "3px solid #C00000");
+    $(redTimer).css("color", "white");
   } else {
     qtimer.html("00:" + (timeLeft - timer));
   }
@@ -83,6 +88,7 @@ var timeOut = function() {
   $("#correct-answer").empty();
   loadNextQuestion();
 };
+
 function gotItRight() {
   yes.play();
   yes.volume = 0.2;
@@ -97,6 +103,12 @@ function gotItRight() {
   $(righto).css("border", "3px solid #00C000");
   $(righto).css("cursour", "default");
   $(righto).css("color", "white");
+  $(righto).attr("disabled", "disabled");
+
+  let wrongo1 = $(".wrongo");
+  $(wrongo1).css("cursour", "default");
+  $(wrongo1).css("color", "white");
+  $(wrongo1).attr("disabled", "disabled");
 
   wins++;
   timer = -1;
@@ -108,9 +120,7 @@ function gotItWrong() {
   no.volume = 0.3;
   let wrong = $("#correct-answer");
   wrongDiv = $("<div>");
-  wrongDiv.html(
-    "<h3>Wrong Answer! Correct answer was: </h3>" + correctAnswer[counter - 1]
-  );
+  wrongDiv.html("<h3>Wrong Answer!</h3>");
   wrongDiv.appendTo(wrong);
 
   let wrongo = $(".wrongo");
@@ -118,7 +128,14 @@ function gotItWrong() {
   $(wrongo).css("border", "3px solid #C00000");
   $(wrongo).css("cursour", "default");
   $(wrongo).css("color", "white");
-  $(wrongo).css("click", ";");
+  $(wrongo).attr("disabled", "disabled");
+
+  let righto1 = $("#righto");
+  $(righto1).css("background", "#003300");
+  $(righto1).css("border", "3px solid #00C000");
+  $(righto1).css("cursour", "default");
+  $(righto1).css("color", "white");
+  $(righto1).attr("disabled", "disabled");
 
   losses++;
   timer = -1;
@@ -140,6 +157,7 @@ function shuffle(allMyButtons) {
     allMyButtons[j] = x;
   }
 }
+
 function gameFinished() {
   if (wins + losses + skips === apiQuestions.length) {
     $("#timer").hide();
@@ -165,6 +183,10 @@ function gameFinished() {
       .on("click", function() {
         location.reload();
       });
+
+    muzyka.pause();
+    haha.play();
+    haha.volume(0.2);
   }
 }
 
@@ -205,6 +227,11 @@ function loadNextQuestion() {
   for (let i = 0; i < allMyButtons.length; i++) {
     allMyButtons[i].appendTo(myButtonsDiv);
   }
+
+  let normalTimer = $("#timer");
+  $(normalTimer).css("background", "gray");
+  $(normalTimer).css("border", "2px solid black");
+  $(normalTimer).css("color", "white");
 
   counter++;
   gameFinished();

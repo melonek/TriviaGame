@@ -95,6 +95,7 @@ body {
 }
 #correct-answer {
   color: green;
+  margin-top: 20px;
 }
 
 #results {
