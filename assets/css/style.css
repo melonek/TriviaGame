@@ -108,6 +108,12 @@ body {
   min-height: 100px;
 }
 
+.progress-bar > img {
+  text-align: center;
+  margin: 10px auto;
+  min-height: 100px;
+}
+
 img {
   width: 300px;
   padding: 10px;
